@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <div>
+        <h2 style="text-align: center;">Login</h2>
+        <div id="login" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <label for="name">Tên</label>
+            <input type="text" id="name" name="name">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email"> <!-- Corrected 'mail' to 'email' -->
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" name="password"> <!-- Corrected 'pwd' to 'password' -->
+            <button type="button" id="btn" value="50">Gửi</button>
+        </div>
+    </div>
+    <script>
+        // lấy element button trong html
+        var btn = document.getElementById("btn");
+
+        // truy cập vào sự kiện click của nút và gán cho nó hàm mình định nghĩa
+        btn.onclick = function () {
+            // lấy giá trị từ input thông qua cây HTML DOM
+            var name = document.getElementById("name").value;
+
+            // điều hướng URL kèm giá trị truyền qua
+            window.location.href = "main.html?name=" + name;
+        }
+    </script>
+</body>
+</html>

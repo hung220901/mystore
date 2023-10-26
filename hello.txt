@@ -1,3 +1,11 @@
-hello may anh trai
+﻿hello may anh trai
+<<<<<<< HEAD
 fuck u
 
+=======
+
+#namk đã gõ
+>>>>>>> 41a6295dfaa522e6617833dc10511aa43358e0dc\
+
+
+#huy huy huy

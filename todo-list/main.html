@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <div>
+        <h1>Todo List:</h1>
+        <div style="border: 1px solid black;margin: 5px 5px;padding: 5px 5px;">
+            <label for="works">Nhập công việc cần làm </label>
+            <input type="text" name="works" id="work">
+            <button id="btnAdd">Thêm</button>
+            <button id="btnDeleteAll">Xóa tất cả</button>
+        </div>
+        <div id="list">
+            
+        </div>
+    </div>
+    <script>
+        // Lấy value từ input và thêm vào 
+//Initial value        
+        var arrList = [];
+        const work = document.getElementById("work"); 
+        const btnAdd = document.getElementById("btnAdd");
+        const btnDelAll = document.getElementById("btnDeleteAll");
+        
+
+// Feature
+        //Delete input and focus
+        const resetInput = () =>{
+            work.value = ''
+            work.focus()
+        }
+
+
+        const addItem = () => { 
+            arrList.unshift(work.value)  
+            resetInput() 
+        }
+
+        const deleteOneItem  = index => {
+            arrList = arrList.filter((a,i)=> index != i);
+            renderList()
+        }
+        
+        const deleteAllItem = () => arrList =[];
+
+        const editItem = (i) => {
+            const liElement = document.querySelector(`span[data-index="${i}"]`)
+            const oldWork = liElement.getAttribute('data'); 
+           if(liElement.getAttribute('data-index') == i.toString()){
+                liElement.innerHTML = `<input style="outline:none;border:none" type="text" id="boxEdit" placeholder="Sửa công việc...">`
+                document.getElementById("boxEdit").focus()
+           }
+           liElement.onkeydown = () =>{
+                if(event.key === 'Enter' &&  document.getElementById("boxEdit").value !== '' ){
+                    arrList.splice(i,1,document.getElementById("boxEdit").value)
+                    renderList()
+                }
+                if(event.key === 'Escape'){
+                    liElement.innerHTML = oldWork
+                }
+           }
+           
+        }
+        
+        const renderList = () => {
+            document.getElementById("list").innerHTML =  arrList.map((a, i)=>(
+                `<li><span data-index="${i}" data="${a}" onclick="editItem(${i})" > ${a}  </span><span style="font-style:bold;font-size:20px;color:white;background-color:red;padding:4px 8px; border-radius:100%" onclick="deleteOneItem(${i})">-</span></li>`
+            )).join(' ') 
+        }
+
+// Event 
+        btnAdd.onclick = () => { 
+            addItem() 
+            renderList()
+        }
+
+        btnDelAll.onclick = () => {
+            deleteAllItem()
+            renderList()
+        }
+
+        work.onkeydown = () =>{
+            if(event.key === 'Enter'){
+                addItem()
+                renderList()
+            }
+        }
+
+
+    </script>
+</body>
+</html>
